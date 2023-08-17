@@ -5,6 +5,7 @@ import cv2
 import numpy as np
 import requests
 from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
 
 # use docker
 from app.code import predict_brand
@@ -12,7 +13,12 @@ from app.code import predict_brand
 # from code import predict_brand
 
 app = FastAPI()
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],   
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 # model = pickle.load(open(r'C:\Users\User\Desktop\AI\Assignment1\CarBrandClass\model\model_XGB.pkl','rb'))
 # use docker
 model = pickle.load(open(f'model/model_XGB.pkl','rb'))
